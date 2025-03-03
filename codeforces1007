@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+bool check(int k) {
+    long long sum = (long long)k * (k + 1) / 2;
+    long long sqrt_sum = sqrt(sum);
+    return sqrt_sum * sqrt_sum != sum;
+}
+
+void solve() {
+    int n;
+    cin >> n;
+
+    if (!check(n)) {
+        cout << "-1\n";
+        return;
+    }
+
+    vector<int> ans(n + 1);
+    for (int i = 1; i <= n; i++) {
+        ans[i] = i;
+    }
+
+    int j = 0;
+    for (int i = 1; i <= n; i++) {
+        while ((long long)j * j < (long long)i * (i + 1) / 2) {
+            j++;
+        }
+        if ((long long)j * j == (long long)i * (i + 1) / 2) {
+            swap(ans[i], ans[i + 1]);
+        }
+        cout << ans[i] << " ";
+    }
+    cout << "\n";
+}
+
+int main() {
+    ios::sync_with_stdio(0); 
+    cin.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
